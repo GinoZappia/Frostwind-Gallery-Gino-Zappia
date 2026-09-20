@@ -349,6 +349,9 @@
         .footer-links span:hover {
             color: var(--text-primary);
         }
+        /* Ensure hidden demo sections stay out of the layout. */
+        [hidden] { display: none !important; }
+
         /* --- PORTFOLIO MEDIA --- */
         .media-section {
             max-width: 1400px;
@@ -414,9 +417,9 @@
     <nav>
         <div class="nav-logo">STUDIO_2026</div>
         <div class="nav-links">
-            <a href="#2d-exhibition">01. 2D ART</a>
-            <a href="#3d-vault">02. 3D VAULT</a>
-            <a href="#portfolio-media">03. MEDIA</a>
+            <a href="#2d-exhibition" hidden>01. 2D ART</a>
+            <a href="#3d-vault" hidden>02. 3D VAULT</a>
+            <a href="#portfolio-media">ARTWORK &amp; VIDEO</a>
         </div>
     </nav>
 
@@ -430,7 +433,8 @@
             </div>
         </header>
 
-        <section class="section-2d" id="2d-exhibition">
+        <!-- Temporarily hidden: shader demos. Remove hidden to restore. -->
+        <section class="section-2d" id="2d-exhibition" hidden>
             <div class="art-card">
                 <div class="card-meta-top">[01 / 2D DISPLAY]</div>
                 <h2>3D Modeling</h2>
@@ -456,7 +460,8 @@
             </div>
         </section>
 
-        <section class="section-3d" id="3d-vault">
+        <!-- Temporarily hidden: Glacial Vault. Remove hidden to restore. -->
+        <section class="section-3d" id="3d-vault" hidden>
             <div class="section-3d-header">
                 <p>[02 / 3D REAL-TIME PRODUCTION]</p>
                 <h2>THE GLACIAL VAULT</h2>
@@ -475,7 +480,7 @@
 
         <section class="media-section" id="portfolio-media" aria-labelledby="media-heading">
             <div class="section-3d-header">
-                <p>[03 / PORTFOLIO MEDIA]</p>
+                <p>[PORTFOLIO MEDIA]</p>
                 <h2 id="media-heading">SELECTED WORK</h2>
                 <span>Explore the artwork. Select an image to view it at full size.</span>
             </div>
@@ -484,103 +489,86 @@
                     <a href="media.jpg" target="_blank" rel="noopener" aria-label="View media.jpg at full size">
                         <img src="media.jpg" alt="Gino Zappia portfolio artwork — media" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>media.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media1.jpg" target="_blank" rel="noopener" aria-label="View Media1.jpg at full size">
                         <img src="Media1.jpg" alt="Gino Zappia portfolio artwork — Media1" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media1.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media10.png" target="_blank" rel="noopener" aria-label="View Media10.png at full size">
                         <img src="Media10.png" alt="Gino Zappia portfolio artwork — Media10" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media10.png</figcaption>
                 </figure>
                 <figure>
                     <a href="Media11.jpg" target="_blank" rel="noopener" aria-label="View Media11.jpg at full size">
                         <img src="Media11.jpg" alt="Gino Zappia portfolio artwork — Media11" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media11.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media12.jpg" target="_blank" rel="noopener" aria-label="View Media12.jpg at full size">
                         <img src="Media12.jpg" alt="Gino Zappia portfolio artwork — Media12" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media12.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media13.jpg" target="_blank" rel="noopener" aria-label="View Media13.jpg at full size">
                         <img src="Media13.jpg" alt="Gino Zappia portfolio artwork — Media13" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media13.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media14.jpg" target="_blank" rel="noopener" aria-label="View Media14.jpg at full size">
                         <img src="Media14.jpg" alt="Gino Zappia portfolio artwork — Media14" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media14.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media15.jpg" target="_blank" rel="noopener" aria-label="View Media15.jpg at full size">
                         <img src="Media15.jpg" alt="Gino Zappia portfolio artwork — Media15" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media15.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media16.jpg" target="_blank" rel="noopener" aria-label="View Media16.jpg at full size">
                         <img src="Media16.jpg" alt="Gino Zappia portfolio artwork — Media16" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media16.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media17.jpg" target="_blank" rel="noopener" aria-label="View Media17.jpg at full size">
                         <img src="Media17.jpg" alt="Gino Zappia portfolio artwork — Media17" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media17.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media3.jpg" target="_blank" rel="noopener" aria-label="View Media3.jpg at full size">
                         <img src="Media3.jpg" alt="Gino Zappia portfolio artwork — Media3" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media3.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media4.jpg" target="_blank" rel="noopener" aria-label="View Media4.jpg at full size">
                         <img src="Media4.jpg" alt="Gino Zappia portfolio artwork — Media4" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media4.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media5.jpg" target="_blank" rel="noopener" aria-label="View Media5.jpg at full size">
                         <img src="Media5.jpg" alt="Gino Zappia portfolio artwork — Media5" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media5.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media6.jpg" target="_blank" rel="noopener" aria-label="View Media6.jpg at full size">
                         <img src="Media6.jpg" alt="Gino Zappia portfolio artwork — Media6" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media6.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media7.jpg" target="_blank" rel="noopener" aria-label="View Media7.jpg at full size">
                         <img src="Media7.jpg" alt="Gino Zappia portfolio artwork — Media7" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media7.jpg</figcaption>
                 </figure>
                 <figure>
                     <a href="Media8.png" target="_blank" rel="noopener" aria-label="View Media8.png at full size">
                         <img src="Media8.png" alt="Gino Zappia portfolio artwork — Media8" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media8.png</figcaption>
                 </figure>
                 <figure>
                     <a href="Media9.png" target="_blank" rel="noopener" aria-label="View Media9.png at full size">
                         <img src="Media9.png" alt="Gino Zappia portfolio artwork — Media9" loading="lazy" decoding="async">
                     </a>
-                    <figcaption>Media9.png</figcaption>
                 </figure>
             </div>
             <div class="portfolio-video">
@@ -616,6 +604,27 @@
                 <video controls playsinline preload="none" aria-labelledby="video-video4">
                     <source src="web-videos/Video4.mp4" type="video/mp4">
                     Your browser does not support embedded video. <a href="web-videos/Video4.mp4">Download this portfolio video</a>.
+                </video>
+            </div>
+            <div class="portfolio-video">
+                <h3 id="video-BrightReaper">BRIGHT REAPER</h3>
+                <video controls playsinline preload="none" aria-labelledby="video-BrightReaper">
+                    <source src="web-videos/BrightReaper.mp4" type="video/mp4">
+                    Your browser does not support embedded video. <a href="web-videos/BrightReaper.mp4">Download this portfolio video</a>.
+                </video>
+            </div>
+            <div class="portfolio-video">
+                <h3 id="video-GoombaBeast">GOOMBA BEAST</h3>
+                <video controls playsinline preload="none" aria-labelledby="video-GoombaBeast">
+                    <source src="web-videos/GoombaBeast.mp4" type="video/mp4">
+                    Your browser does not support embedded video. <a href="web-videos/GoombaBeast.mp4">Download this portfolio video</a>.
+                </video>
+            </div>
+            <div class="portfolio-video">
+                <h3 id="video-Sickleweapon">SICKLE WEAPON</h3>
+                <video controls playsinline preload="none" aria-labelledby="video-Sickleweapon">
+                    <source src="web-videos/Sickleweapon.mp4" type="video/mp4">
+                    Your browser does not support embedded video. <a href="web-videos/Sickleweapon.mp4">Download this portfolio video</a>.
                 </video>
             </div>
         </section>
@@ -709,6 +718,7 @@
         // --- 3. 2D ART GALLERIES: LIQUID LIQUEFY FRACTURE shaders via 2D Context Math ---
         function setupLiquidGallery(canvasId, hueOffset) {
             const canvas = document.getElementById(canvasId);
+            if (canvas.closest('[hidden]')) return;
             const ctx = canvas.getContext('2d');
             let width, height;
             let progress = 0;
@@ -875,7 +885,7 @@
             vCtx.restore();
             requestAnimationFrame(renderVault);
         }
-        renderVault();
+        if (!vaultCanvas.closest('[hidden]')) renderVault();
     </script>
 </body>
 </html>
