@@ -3,240 +3,791 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frostwind Gallery | Gino Zappia</title>
+    <title>GINO ZAPPIA / ARTIST PORTFOLIO</title>
     <style>
-        /* Icy Theme Palette */
+        /* --- DESIGN SYSTEM & SYSTEM VARIABLES --- */
         :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0369a1 100%);
-            --snow-white: #f8fafc;
-            --ice-blue: #e0f2fe;
-            --arctic-cyan: #38bdf8;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --bg-dominant: #05070a;
+            --bg-card: #0b0f17;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --accent-blue: #38bdf8;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        body {
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            color: var(--snow-white);
-            min-height: 100vh;
+        html, body {
+            background-color: var(--bg-dominant);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--accent-blue);
+            color: var(--bg-dominant);
+        }
+
+        /* --- PRELOADER --- */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background-color: var(--text-primary);
+            color: var(--bg-dominant);
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
+            padding: 3rem;
+            transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
         }
 
-        /* Header & Navigation */
-        header {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--glass-border);
+        .loader-header {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+        }
+
+        .loader-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 10vw;
+            font-weight: 300;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+        }
+
+        .loader-counter {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+        }
+
+        /* --- BACKGROUND PARTICLES --- */
+        #bg-canvas {
             position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            width: 100vw;
+            height: 100vh;
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1.5rem 2rem;
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+            padding: 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            mix-blend-mode: difference;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--snow-white);
-            text-transform: uppercase;
-        }
-
-        .logo span {
-            color: var(--arctic-cyan);
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-        }
-
-        nav a {
-            color: var(--ice-blue);
+        nav a, .nav-logo {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--text-primary);
             text-decoration: none;
-            margin-left: 2rem;
             transition: color 0.3s ease;
-            font-size: 0.95rem;
         }
 
         nav a:hover {
-            color: var(--arctic-cyan);
+            color: var(--accent-blue);
         }
 
-        /* Hero Section */
-        .hero {
-            padding: 10rem 2rem 6rem 2rem;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
+        .nav-links {
+            display: flex;
+            gap: 2rem;
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
+        /* --- CORE CONTENT LAYOUT --- */
+        main {
+            position: relative;
+            z-index: 10;
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 4rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            position: relative;
+        }
+
+        header p {
+            font-family: var(--font-mono);
+            color: var(--accent-blue);
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
             margin-bottom: 1rem;
-            color: var(--snow-white);
-            background: linear-gradient(to right, #ffffff, var(--ice-blue), var(--arctic-cyan));
+        }
+
+        header h1 {
+            font-size: 9vw;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 0.85;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, var(--text-primary) 0%, var(--text-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--ice-blue);
-            opacity: 0.8;
-            line-height: 1.6;
+        .header-footer {
+            position: absolute;
+            bottom: 3rem;
+            left: 4rem;
+            right: 4rem;
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
         }
 
-        /* Gallery Grid */
-        .gallery-container {
-            max-width: 1200px;
-            margin: 0 auto p 4rem auto;
-            padding: 0 2rem 6rem 2rem;
-            flex-grow: 1;
-        }
-
-        .grid {
+        /* --- 2D EXHIBITION (EDITORIAL GRID) --- */
+        .section-2d {
+            padding: 8rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: 1fr;
+            gap: 6rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .section-2d {
+                grid-template-columns: 1fr 1fr;
+            }
+            .grid-offset {
+                margin-top: 12rem;
+            }
+        }
+
+        .art-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-meta-top {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .art-card h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .canvas-container-2d {
+            width: 100%;
+            height: 500px;
+            background-color: var(--bg-card);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+        .card-meta-bottom {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.70rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+        }
+
+        /* --- 3D INTERACTIVE VAULT --- */
+        .section-3d {
+            padding: 8rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-3d-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-3d-header p {
+            font-family: var(--font-mono);
+            color: var(--accent-blue);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-3d-header h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .section-3d-header span {
+            display: block;
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .vault-container {
+            width: 100%;
+            height: 600px;
+            background-color: var(--bg-card);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vault-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 20;
+            background: rgba(5, 7, 10, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: #7dd3fc;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .vault-badge::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        .vault-footer {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 20;
+            background: rgba(5, 7, 10, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-align: right;
+            font-family: var(--font-mono);
+        }
+
+        .vault-footer p { font-size: 0.75rem; color: var(--text-primary); }
+        .vault-footer span { font-size: 0.65rem; color: var(--text-secondary); text-transform: uppercase;}
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 3rem 4rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        @media (min-width: 768px) {
+            footer {
+                flex-direction: row;
+            }
+        }
+
+        .footer-links {
+            display: flex;
             gap: 2rem;
         }
 
-        /* Frosted Glass Card */
-        .card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            overflow: hidden;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .footer-links span {
+            cursor: pointer;
+            transition: color 0.3s ease;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
-            border-color: rgba(56, 189, 248, 0.3);
+        .footer-links span:hover {
+            color: var(--text-primary);
         }
-
-        .card-image-placeholder {
-            height: 250px;
-            background: linear-gradient(45deg, rgba(56, 189, 248, 0.1), rgba(255, 255, 255, 0.05));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--ice-blue);
-            font-style: italic;
-            border-bottom: 1px solid var(--glass-border);
-            position: relative;
+        /* --- PORTFOLIO MEDIA --- */
+        .media-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 4rem;
+            scroll-margin-top: 6rem;
         }
-
-        /* Little snowflake decoration for placeholder */
-        .card-image-placeholder::before {
-            content: "❄";
-            font-size: 3rem;
-            opacity: 0.15;
-            position: absolute;
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 3rem;
         }
-
-        .card-info {
-            padding: 1.5rem;
+        .media-grid figure { min-width: 0; }
+        .media-grid a { display: block; }
+        .media-grid img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 4px;
+            background: var(--bg-card);
         }
-
-        .card-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--snow-white);
+        .media-grid a:focus-visible {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 6px;
         }
-
-        .card-info p {
-            font-size: 0.9rem;
-            color: var(--ice-blue);
-            opacity: 0.7;
+        .media-grid figcaption {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
         }
-
-        /* Footer */
-        footer {
-            background: rgba(15, 23, 42, 0.8);
-            border-top: 1px solid var(--glass-border);
-            padding: 2rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--ice-blue);
-            opacity: 0.6;
+        .portfolio-video { margin-top: 5rem; }
+        .portfolio-video h3 { margin-bottom: 1.5rem; font-weight: 300; font-size: 2rem; }
+        .portfolio-video video {
+            display: block;
+            width: 100%;
+            max-height: 80vh;
+            background: #000;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 4px;
         }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .nav-container { flex-direction: column; gap: 1rem; }
-            nav a { margin: 0 1rem; }
+        @media (max-width: 767px) {
+            .media-section { padding: 5rem 1.5rem; }
+            .media-grid { grid-template-columns: 1fr; gap: 2rem; }
+            nav { padding: 1.5rem 1rem; flex-wrap: wrap; gap: 1rem; }
+            .nav-links { flex-wrap: wrap; gap: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
-            <div class="logo">Frostwind<span>Gallery</span></div>
-            <nav>
-                <a href="#">Home</a>
-                <a href="#">Gallery</a>
-                <a href="#">About</a>
-            </nav>
+    <div id="preloader">
+        <div class="loader-header">SYSTEM INIT // STANDALONE ENGINE 2026</div>
+        <div class="loader-main">
+            <span>INITIALIZING...</span> 
+            <span class="loader-counter" id="load-percentage">000%</span>
         </div>
-    </header>
+    </div>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <nav>
+        <div class="nav-logo">STUDIO_2026</div>
+        <div class="nav-links">
+            <a href="#2d-exhibition">01. 2D ART</a>
+            <a href="#3d-vault">02. 3D VAULT</a>
+            <a href="#portfolio-media">03. MEDIA</a>
+        </div>
+    </nav>
 
     <main>
-        <section class="hero">
-            <h1>Gino Zappia</h1>
-            <p>Welcome to Frostwind Gallery. A curated collection of crisp, chilling visuals and frozen moments captured in time.</p>
-        </section>
+        <header>
+            <p>// - 2D / 3D TECHNICAL ARTIST - STORYBOARDING - GAME DEVELOPMENT - </p>
+            <h1>GINO<br>ZAPPIA PORTFOLIO</h1>
+            <div class="header-footer">
+                <div>[SCROLL DOWN TO INITIATE]</div>
+                <div>EST. 2026</div>
+            </div>
+        </header>
 
-        <section class="gallery-container">
-            <div class="grid">
-                <div class="card">
-                    <div class="card-image-placeholder"><span>Artwork Placeholder</span></div>
-                    <div class="card-info">
-                        <h3>Glacial Drift</h3>
-                        <p>Photography / Digital Art</p>
-                    </div>
+        <section class="section-2d" id="2d-exhibition">
+            <div class="art-card">
+                <div class="card-meta-top">[01 / 2D DISPLAY]</div>
+                <h2>3D Modeling</h2>
+                <div class="canvas-container-2d">
+                    <canvas id="canvas-2d-1" style="width:100%; height:100%;"></canvas>
                 </div>
-                <div class="card">
-                    <div class="card-image-placeholder"><span>Artwork Placeholder</span></div>
-                    <div class="card-info">
-                        <h3>Sub-Zero Silence</h3>
-                        <p>Abstract Concept</p>
-                    </div>
+                <div class="card-meta-bottom">
+                    <span>MEDIUM: PROCEDURAL LIQUID RENDER</span>
+                    <span>SHADING: FRAGMENT CELL PASS</span>
                 </div>
-                <div class="card">
-                    <div class="card-image-placeholder"><span>Artwork Placeholder</span></div>
-                    <div class="card-info">
-                        <h3>Arctic Aurora</h3>
-                        <p>Landscape Series</p>
-                    </div>
+            </div>
+
+            <div class="art-card grid-offset">
+                <div class="card-meta-top">[02 / 2D DISPLAY]</div>
+                <h2>2D Concept Art</h2>
+                <div class="canvas-container-2d">
+                    <canvas id="canvas-2d-2" style="width:100%; height:100%;"></canvas>
+                </div>
+                <div class="card-meta-bottom">
+                    <span>TITLE: CHILL FACTOR_02</span>
+                    <span>STATUS: INTERACTIVE MATH RESTRUCTURE</span>
                 </div>
             </div>
         </section>
+
+        <section class="section-3d" id="3d-vault">
+            <div class="section-3d-header">
+                <p>[02 / 3D REAL-TIME PRODUCTION]</p>
+                <h2>THE GLACIAL VAULT</h2>
+                <span>Native mathematical projection engine running without WebGL overhead. Click and drag your cursor left/right to rotate the structural geometry setup.</span>
+            </div>
+
+            <div class="vault-container">
+                <div class="vault-badge">INTERACTIVE NATIVE ORBIT CORE ACTIVE</div>
+                <canvas id="canvas-3d" style="width:100%; height:100%; display:block;"></canvas>
+                <div class="vault-footer">
+                    <p>MODEL_ID // CRYOMATRIX.3D</p>
+                    <span>Composition: Pure Vector Engine Projection</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="media-section" id="portfolio-media" aria-labelledby="media-heading">
+            <div class="section-3d-header">
+                <p>[03 / PORTFOLIO MEDIA]</p>
+                <h2 id="media-heading">SELECTED WORK</h2>
+                <span>Explore the artwork. Select an image to view it at full size.</span>
+            </div>
+            <div class="media-grid">
+                <figure>
+                    <a href="media.jpg" target="_blank" rel="noopener" aria-label="View media.jpg at full size">
+                        <img src="media.jpg" alt="Gino Zappia portfolio artwork — media" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>media.jpg</figcaption>
+                </figure>
+                <figure>
+                    <a href="Media1.jpg" target="_blank" rel="noopener" aria-label="View Media1.jpg at full size">
+                        <img src="Media1.jpg" alt="Gino Zappia portfolio artwork — Media1" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Media1.jpg</figcaption>
+                </figure>
+                <figure>
+                    <a href="Media3.jpg" target="_blank" rel="noopener" aria-label="View Media3.jpg at full size">
+                        <img src="Media3.jpg" alt="Gino Zappia portfolio artwork — Media3" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Media3.jpg</figcaption>
+                </figure>
+                <figure>
+                    <a href="Media4.jpg" target="_blank" rel="noopener" aria-label="View Media4.jpg at full size">
+                        <img src="Media4.jpg" alt="Gino Zappia portfolio artwork — Media4" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Media4.jpg</figcaption>
+                </figure>
+                <figure>
+                    <a href="Media5.jpg" target="_blank" rel="noopener" aria-label="View Media5.jpg at full size">
+                        <img src="Media5.jpg" alt="Gino Zappia portfolio artwork — Media5" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Media5.jpg</figcaption>
+                </figure>
+                <figure>
+                    <a href="Media6.jpg" target="_blank" rel="noopener" aria-label="View Media6.jpg at full size">
+                        <img src="Media6.jpg" alt="Gino Zappia portfolio artwork — Media6" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Media6.jpg</figcaption>
+                </figure>
+                <figure>
+                    <a href="Media7.jpg" target="_blank" rel="noopener" aria-label="View Media7.jpg at full size">
+                        <img src="Media7.jpg" alt="Gino Zappia portfolio artwork — Media7" loading="lazy" decoding="async">
+                    </a>
+                    <figcaption>Media7.jpg</figcaption>
+                </figure>
+            </div>
+            <div class="portfolio-video">
+                <h3 id="video-heading">PORTFOLIO VIDEO</h3>
+                <video controls playsinline preload="metadata" aria-labelledby="video-heading">
+                    <source src="video.mp4" type="video/mp4">
+                    Your browser does not support embedded video. <a href="video.mp4">Download the portfolio video</a>.
+                </video>
+            </div>
+        </section>
+        <footer>
+            <div>© 2026 DIGITAL EXHIBIT ENGINE. NATIVE STANDALONE SYSTEM COMPLETE.</div>
+            <div class="footer-links">
+                <span>STATION // 01</span>
+                <span>TWITTER</span>
+                <span>LINKEDIN</span>
+            </div>
+        </footer>
     </main>
 
-    <footer>
-        <p>&copy; 2026 Gino Zappia | Frostwind Gallery. All rights reserved.</p>
-    </footer>
+    <script>
+        // --- 1. PRELOADER COUNTDOWN ---
+        window.addEventListener('DOMContentLoaded', () => {
+            let percentage = 0;
+            const counterElement = document.getElementById('load-percentage');
+            const preloader = document.getElementById('preloader');
 
+            const interval = setInterval(() => {
+                percentage += 2;
+                counterElement.innerText = percentage.toString().padStart(3, '0') + '%';
+                
+                if (percentage >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        preloader.style.transform = 'translateY(-100%)';
+                    }, 500);
+                }
+            }, 25);
+        });
+
+        // --- 2. GLOBAL ICE DUST PARTICLES (BACKGROUND CANVAS) ---
+        const bgCanvas = document.getElementById('bg-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        let particles = [];
+        const maxParticles = 150;
+
+        function resizeBgCanvas() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeBgCanvas);
+        resizeBgCanvas();
+
+        class IceParticle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * bgCanvas.width;
+                this.y = Math.random() * bgCanvas.height - bgCanvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedY = Math.random() * 1 + 0.5;
+                this.speedX = Math.sin(Math.random() * 2) * 0.3;
+                this.opacity = Math.random() * 0.4 + 0.1;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.y > bgCanvas.height) {
+                    this.reset();
+                }
+            }
+            draw() {
+                bgCtx.fillStyle = `rgba(125, 211, 252, ${this.opacity})`;
+                bgCtx.beginPath();
+                bgCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                bgCtx.fill();
+            }
+        }
+
+        for (let i = 0; i < maxParticles; i++) {
+            particles.push(new IceParticle());
+            // Scatter them initially throughout full height
+            particles[i].y = Math.random() * bgCanvas.height;
+        }
+
+        function animateBg() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            for (let p of particles) {
+                p.update();
+                p.draw();
+            }
+            requestAnimationFrame(animateBg);
+        }
+        animateBg();
+
+
+        // --- 3. 2D ART GALLERIES: LIQUID LIQUEFY FRACTURE shaders via 2D Context Math ---
+        function setupLiquidGallery(canvasId, hueOffset) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let progress = 0;
+            let targetProgress = 0;
+            let time = 0;
+
+            function resize() {
+                width = canvas.width = canvas.parentElement.clientWidth;
+                height = canvas.height = canvas.parentElement.clientHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            canvas.addEventListener('mouseenter', () => targetProgress = 1);
+            canvas.addEventListener('mouseleave', () => targetProgress = 0);
+
+            function render() {
+                time += 0.03;
+                // Native linear interpolation for smooth motion easing
+                progress += (targetProgress - progress) * 0.1;
+                
+                ctx.clearRect(0, 0, width, height);
+
+                // Draw a procedurally computed ice texture block line by line
+                const step = 4; 
+                for (let y = 0; y < height; y += step) {
+                    // Sine and Cosine equations calculation instead of relying on custom WebGL configurations
+                    let waveX = Math.sin(y * 0.01 + time) * 15 * progress;
+                    let waveNoise = Math.cos(y * 0.05 - time * 2) * 8 * progress;
+                    let displacement = waveX + waveNoise;
+
+                    // Compute gradient colors for structural cold mapping
+                    let factor = (y / height);
+                    let baseGrad = 30 + Math.sin(time + y*0.005) * 10;
+                    let r = Math.floor(baseGrad * (1 - progress) + (40 * progress));
+                    let g = Math.floor((baseGrad + 15) * (1 - progress) + (130 + hueOffset) * progress);
+                    let b = Math.floor((baseGrad + 35) * (1 - progress) + (230) * progress);
+
+                    ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+                    // Offset each slice based on calculated noise matrix to mimic breaking/shattering ice
+                    ctx.fillRect(40 + displacement, y, width - 80, step);
+                }
+
+                requestAnimationFrame(render);
+            }
+            render();
+        }
+
+        setupLiquidGallery('canvas-2d-1', 0);
+        setupLiquidGallery('canvas-2d-2', 40);
+
+
+        // --- 4. 3D IMMERSIVE VAULT: 3D VECTOR ROTATION MATRIX WITHOUT WEBGL OVERHEAD ---
+        const vaultCanvas = document.getElementById('canvas-3d');
+        const vCtx = vaultCanvas.getContext('2d');
+        let vWidth, vHeight;
+        let rotationY = 0;
+        let targetRotationY = 0;
+        let isDragging = false;
+        let previousMouseX = 0;
+
+        function resizeVault() {
+            vWidth = vaultCanvas.width = vaultCanvas.parentElement.clientWidth;
+            vHeight = vaultCanvas.height = vaultCanvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeVault);
+        resizeVault();
+
+        // High end mathematical 3D structures: An intricate cold hyper-crystal shape
+        let vertices = [];
+        function generate3DShape() {
+            vertices = [];
+            // Generating double multi-faceted diamond rings mapping an explicit 3D matrix
+            for(let layer = -2; layer <= 2; layer++) {
+                let y = layer * 50;
+                let radius = (3 - Math.abs(layer)) * 40;
+                let count = 8;
+                for(let i=0; i<count; i++) {
+                    let angle = (i / count) * Math.PI * 2;
+                    vertices.push({
+                        x: Math.cos(angle) * radius,
+                        y: y,
+                        z: Math.sin(angle) * radius
+                    });
+                }
+            }
+        }
+        generate3DShape();
+
+        // Interactive mouse movement orbit control overrides
+        vaultCanvas.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            previousMouseX = e.clientX;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            let deltaX = e.clientX - previousMouseX;
+            targetRotationY += deltaX * 0.007;
+            previousMouseX = e.clientX;
+        });
+
+        window.addEventListener('mouseup', () => isDragging = false);
+
+        function renderVault() {
+            vCtx.clearRect(0, 0, vWidth, vHeight);
+            
+            // Automatic structural ambient rotation mixed with user interaction damping matrix properties
+            if(!isDragging) targetRotationY += 0.003;
+            rotationY += (targetRotationY - rotationY) * 0.05;
+
+            vCtx.save();
+            vCtx.translate(vWidth / 2, vHeight / 2); // Core translation matrix pivot lock
+
+            let projectedPoints = [];
+
+            // Project 3D vector logic into flat screen coordinates via 3D matrix math configurations
+            for (let i = 0; i < vertices.length; i++) {
+                let v = vertices[i];
+
+                // Y-axis Rotation calculations
+                let rotX = v.x * Math.cos(rotationY) - v.z * Math.sin(rotationY);
+                let rotZ = v.x * Math.sin(rotationY) + v.z * Math.cos(rotationY);
+
+                // Simple camera distance optics modeling
+                let cameraDistance = 300;
+                let perspectiveScale = cameraDistance / (cameraDistance + rotZ);
+                
+                let screenX = rotX * perspectiveScale * 2;
+                let screenY = v.y * perspectiveScale * 2;
+
+                projectedPoints.push({x: screenX, y: screenY, z: rotZ});
+            }
+
+            // Draw connecting matrix vector frameworks to look like technical glowing blueprint structures
+            vCtx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
+            vCtx.lineWidth = 1;
+
+            for(let i = 0; i < projectedPoints.length; i++) {
+                for(let j = i + 1; j < projectedPoints.length; j++) {
+                    let distSq = Math.pow(vertices[i].x - vertices[j].x, 2) + 
+                                 Math.pow(vertices[i].y - vertices[j].y, 2) + 
+                                 Math.pow(vertices[i].z - vertices[j].z, 2);
+                    
+                    // Render connecting nodes only if below strict limit bounds mimicking frozen light grid alignments
+                    if(distSq < 4200) {
+                        vCtx.beginPath();
+                        vCtx.moveTo(projectedPoints[i].x, projectedPoints[i].y);
+                        vCtx.lineTo(projectedPoints[j].x, projectedPoints[j].y);
+                        vCtx.stroke();
+                    }
+                }
+            }
+
+            // Render vertices as individual sharp glowing geometric node crystals
+            for(let p of projectedPoints) {
+                let alpha = (150 - p.z) / 300; // Native depth fog scaling calculations
+                vCtx.fillStyle = `rgba(226, 232, 240, ${alpha + 0.2})`;
+                vCtx.beginPath();
+                vCtx.arc(p.x, p.y, Math.max(1, 3 * (alpha + 0.2)), 0, Math.PI * 2);
+                vCtx.fill();
+            }
+
+            vCtx.restore();
+            requestAnimationFrame(renderVault);
+        }
+        renderVault();
+    </script>
 </body>
 </html>
