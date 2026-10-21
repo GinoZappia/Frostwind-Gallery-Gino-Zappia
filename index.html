@@ -400,6 +400,58 @@
             nav { padding: 1.5rem 1rem; flex-wrap: wrap; gap: 1rem; }
             .nav-links { flex-wrap: wrap; gap: 1rem; }
         }
+        /* Collection navigation */
+        nav { background: rgba(5,7,10,.92); mix-blend-mode: normal; backdrop-filter: blur(12px); }
+        .collection-intro { height: auto; padding: 8rem 2rem 2rem; }
+        .intro-title { display: flex; justify-content: space-between; align-items: baseline; margin: 0 1rem 2rem; gap: 1rem; }
+        .intro-title p { margin: 0; letter-spacing: .18em; }
+        .intro-title h1 { font-size: clamp(1.5rem,3vw,3rem); font-weight: 400; line-height: 1; text-transform: none; background: none; -webkit-text-fill-color: currentColor; }
+        .collection-carousel { position: relative; overflow: hidden; height: clamp(440px,70vh,850px); background: #0b0f17; touch-action: pan-y; border: 1px solid #26303e; }
+        .collection-track { display: flex; height: 100%; transition: transform 650ms cubic-bezier(.22,.7,.2,1); }
+        .collection-slide { flex: 0 0 100%; min-width: 0; position: relative; }
+        .collection-link { display: block; height: 100%; color: #fff; text-decoration: none; position: relative; }
+        .collection-link img { width: 100%; height: 100%; object-fit: cover; object-position: center 42%; display: block; }
+        .collection-link::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg,rgba(0,0,0,.08) 15%,rgba(0,0,0,.15) 40%,rgba(0,0,0,.85) 100%); pointer-events: none; }
+        .collection-blank .collection-link::after { background: none; }
+        .slide-caption { position: absolute; z-index: 1; bottom: 5rem; left: clamp(4rem,7vw,7rem); right: 4rem; }
+        .slide-caption > span { font: .75rem var(--font-mono); letter-spacing: .2em; }
+        .slide-caption h2 { margin: 1rem 0; font-size: clamp(2rem,4.8vw,5rem); line-height: 1.08; font-weight: 400; letter-spacing: -.035em; }
+        .slide-caption p { color: #fff; font-size: .8rem; letter-spacing: .1em; margin: 1.5rem 0 0; }
+        .collection-arrow { position: absolute; z-index: 2; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border: 1px solid #ffffff80; border-radius: 50%; color: white; background: #05070ab3; font-size: 1.5rem; cursor: pointer; }
+        .collection-prev { left: 1rem; } .collection-next { right: 1rem; }
+        .collection-arrow:hover { background: #e2e8f0; color: #05070a; }
+        .collection-controls { position: absolute; z-index: 2; bottom: 1.5rem; left: clamp(4rem,7vw,7rem); display: flex; gap: .75rem; }
+        .collection-controls button { border: 0; border-bottom: 2px solid #ffffff40; background: transparent; color: #cbd5e1; font: .75rem var(--font-mono); padding: .75rem 1rem; min-width: 48px; min-height: 44px; cursor: pointer; }
+        .collection-controls button[aria-current="true"] { border-color: #fff; color: #fff; }
+        .collection-link:focus-visible { outline: 3px solid var(--accent-blue); outline-offset: -5px; }
+        button:focus-visible, .collection-carousel:focus-visible, nav a:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 3px; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+        .collection-heading { margin-bottom: 3rem; }
+        .collection-heading p { color: var(--accent-blue); font: .75rem var(--font-mono); letter-spacing: .16em; margin-bottom: 1rem; }
+        .collection-heading h2 { font-size: clamp(2rem,4vw,3.5rem); font-weight: 300; letter-spacing: -.03em; }
+        .storyboard-section { min-height: 55vh; }
+        #collections { scroll-margin-top: 6rem; }
+        @media (max-width: 767px) {
+            nav { padding: 1rem; }
+            nav a, .nav-logo { font-size: .65rem; letter-spacing: .08em; }
+            .nav-links { gap: .8rem; }
+            .collection-intro { padding: 7rem .75rem 1rem; }
+            .intro-title { display: block; margin: 0 .5rem 1.5rem; }
+            .intro-title p { font-size: .6rem; margin-bottom: .75rem; }
+            .collection-carousel { height: 65svh; min-height: 450px; }
+            .collection-arrow { width: 44px; height: 44px; }
+            .collection-prev { left: .5rem; } .collection-next { right: .5rem; }
+            .slide-caption { left: 1.5rem; right: 1.5rem; bottom: 6rem; }
+            .slide-caption h2 { font-size: clamp(1.8rem,7.8vw,3rem); }
+            .collection-controls { left: 1.5rem; }
+            .collection-link img { object-position: center; }
+            .media-section { scroll-margin-top: 7rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html, body { scroll-behavior: auto; }
+            .collection-track { transition: none; }
+            #preloader { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -414,22 +466,46 @@
 
     <canvas id="bg-canvas"></canvas>
 
-    <nav>
-        <div class="nav-logo">STUDIO_2026</div>
+    <nav aria-label="Main navigation">
+        <a class="nav-logo" href="#collections">GINO ZAPPIA</a>
         <div class="nav-links">
-            <a href="#2d-exhibition" hidden>01. 2D ART</a>
-            <a href="#3d-vault" hidden>02. 3D VAULT</a>
-            <a href="#portfolio-media">ARTWORK &amp; VIDEO</a>
+            <a href="#portfolio-media">VIDEOS</a>
+            <a href="#art-collection">ARTWORK</a>
+            <a href="#storyboarding">STORYBOARDING</a>
         </div>
     </nav>
 
     <main>
-        <header>
-            <p>// - 2D / 3D TECHNICAL ARTIST - STORYBOARDING - GAME DEVELOPMENT - </p>
-            <h1>GINO<br>ZAPPIA PORTFOLIO</h1>
-            <div class="header-footer">
-                <div>[SCROLL DOWN TO INITIATE]</div>
-                <div>EST. 2026</div>
+        <header class="collection-intro" id="collections">
+            <div class="intro-title"><p>ART / MOTION / IMAGINATION</p><h1>Gino Zappia</h1></div>
+            <div class="collection-carousel" role="region" aria-roledescription="carousel" aria-label="Portfolio collections" tabindex="0">
+                <div class="collection-track">
+                    <article class="collection-slide" role="group" aria-roledescription="slide" aria-label="1 of 3: 2D / 3D Art">
+                        <a href="#art-collection" class="collection-link">
+                            <img src="Media1.png?v=f3c62bd49433" alt="Painted character scene from the 2D / 3D Art collection" fetchpriority="high" draggable="false">
+                            <div class="slide-caption"><span>01 / COLLECTION</span><h2>2D / 3D Art</h2><p>Explore the collection <span aria-hidden="true">↗</span></p></div>
+                        </a>
+                    </article>
+                    <article class="collection-slide" role="group" aria-roledescription="slide" aria-label="2 of 3: Game Development / Concept Art" inert aria-hidden="true">
+                        <a href="#portfolio-media" class="collection-link" tabindex="-1">
+                            <img src="video-posters/Video3.jpg" alt="3D asset from the first game development video" draggable="false">
+                            <div class="slide-caption"><span>02 / COLLECTION</span><h2>Game Development<br>/ Concept Art</h2><p>Explore the collection <span aria-hidden="true">↗</span></p></div>
+                        </a>
+                    </article>
+                    <article class="collection-slide collection-blank" role="group" aria-roledescription="slide" aria-label="3 of 3: Storyboarding" inert aria-hidden="true">
+                        <a href="#storyboarding" class="collection-link" tabindex="-1">
+                            <div class="slide-caption"><span>03 / COLLECTION</span><h2>Storyboarding</h2><p>View section <span aria-hidden="true">↗</span></p></div>
+                        </a>
+                    </article>
+                </div>
+                <button class="collection-arrow collection-prev" type="button" aria-label="Previous collection">←</button>
+                <button class="collection-arrow collection-next" type="button" aria-label="Next collection">→</button>
+                <div class="collection-controls" role="group" aria-label="Choose collection">
+                    <button type="button" aria-label="Show 2D / 3D Art" aria-current="true">01</button>
+                    <button type="button" aria-label="Show Game Development / Concept Art">02</button>
+                    <button type="button" aria-label="Show Storyboarding">03</button>
+                </div>
+                <span class="sr-only collection-status" aria-live="polite" aria-atomic="true">2D / 3D Art, collection 1 of 3</span>
             </div>
         </header>
 
@@ -479,292 +555,263 @@
         </section>
 
         <section class="media-section" id="portfolio-media" aria-labelledby="media-heading">
-            <div class="section-3d-header">
-                <p>[2D / 3D Artwork]</p>
+            <div class="collection-heading">
+                <p>01 / MOTION &amp; PROCESS</p>
                 <h2 id="media-heading">Game Development / Concept Art</h2>
-                <span>Explore the artwork. Select an image to view it at full size.</span>
             </div>
-            <div class="media-grid">
-                <figure>
-                    <a href="media.jpg" target="_blank" rel="noopener" aria-label="View media.jpg at full size">
-                        <img src="media.jpg" alt="Gino Zappia portfolio artwork — media" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media1.jpg" target="_blank" rel="noopener" aria-label="View Media1.jpg at full size">
-                        <img src="Media1.jpg" alt="Gino Zappia portfolio artwork — Media1" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media10.png" target="_blank" rel="noopener" aria-label="View Media10.png at full size">
-                        <img src="Media10.png" alt="Gino Zappia portfolio artwork — Media10" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media11.jpg" target="_blank" rel="noopener" aria-label="View Media11.jpg at full size">
-                        <img src="Media11.jpg" alt="Gino Zappia portfolio artwork — Media11" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media12.jpg" target="_blank" rel="noopener" aria-label="View Media12.jpg at full size">
-                        <img src="Media12.jpg" alt="Gino Zappia portfolio artwork — Media12" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media13.jpg" target="_blank" rel="noopener" aria-label="View Media13.jpg at full size">
-                        <img src="Media13.jpg" alt="Gino Zappia portfolio artwork — Media13" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media14.jpg" target="_blank" rel="noopener" aria-label="View Media14.jpg at full size">
-                        <img src="Media14.jpg" alt="Gino Zappia portfolio artwork — Media14" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media15.jpg" target="_blank" rel="noopener" aria-label="View Media15.jpg at full size">
-                        <img src="Media15.jpg" alt="Gino Zappia portfolio artwork — Media15" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media16.jpg" target="_blank" rel="noopener" aria-label="View Media16.jpg at full size">
-                        <img src="Media16.jpg" alt="Gino Zappia portfolio artwork — Media16" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media17.jpg" target="_blank" rel="noopener" aria-label="View Media17.jpg at full size">
-                        <img src="Media17.jpg" alt="Gino Zappia portfolio artwork — Media17" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media3.jpg" target="_blank" rel="noopener" aria-label="View Media3.jpg at full size">
-                        <img src="Media3.jpg" alt="Gino Zappia portfolio artwork — Media3" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media4.jpg" target="_blank" rel="noopener" aria-label="View Media4.jpg at full size">
-                        <img src="Media4.jpg" alt="Gino Zappia portfolio artwork — Media4" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media5.jpg" target="_blank" rel="noopener" aria-label="View Media5.jpg at full size">
-                        <img src="Media5.jpg" alt="Gino Zappia portfolio artwork — Media5" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media6.jpg" target="_blank" rel="noopener" aria-label="View Media6.jpg at full size">
-                        <img src="Media6.jpg" alt="Gino Zappia portfolio artwork — Media6" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media7.jpg" target="_blank" rel="noopener" aria-label="View Media7.jpg at full size">
-                        <img src="Media7.jpg" alt="Gino Zappia portfolio artwork — Media7" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media8.png" target="_blank" rel="noopener" aria-label="View Media8.png at full size">
-                        <img src="Media8.png" alt="Gino Zappia portfolio artwork — Media8" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Media9.png" target="_blank" rel="noopener" aria-label="View Media9.png at full size">
-                        <img src="Media9.png" alt="Gino Zappia portfolio artwork — Media9" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="WoodLouseFirstRender.jpg" target="_blank" rel="noopener" aria-label="View woodlouse render at full size">
-                        <img src="WoodLouseFirstRender.jpg" alt="Woodlouse first render" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Antelope.jpg" target="_blank" rel="noopener" aria-label="View Antelope at full size">
-                        <img src="Antelope.jpg" alt="Antelope" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="BadgerWarrior.jpg" target="_blank" rel="noopener" aria-label="View BadgerWarrior at full size">
-                        <img src="BadgerWarrior.jpg" alt="BadgerWarrior" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="CityStreet.jpg" target="_blank" rel="noopener" aria-label="View CityStreet at full size">
-                        <img src="CityStreet.jpg" alt="CityStreet" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Dire_Turtle.jpg" target="_blank" rel="noopener" aria-label="View Dire_Turtle at full size">
-                        <img src="Dire_Turtle.jpg" alt="Dire_Turtle" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="GoombaBeast_var1.jpg" target="_blank" rel="noopener" aria-label="View GoombaBeast_var1 at full size">
-                        <img src="GoombaBeast_var1.jpg" alt="GoombaBeast_var1" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="MassivePincerBeast.jpg" target="_blank" rel="noopener" aria-label="View MassivePincerBeast at full size">
-                        <img src="MassivePincerBeast.jpg" alt="MassivePincerBeast" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Moon-Lit_Feeder.jpg" target="_blank" rel="noopener" aria-label="View Moon-Lit_Feeder at full size">
-                        <img src="Moon-Lit_Feeder.jpg" alt="Moon-Lit_Feeder" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="NewMalePortrait2025Gal.jpg" target="_blank" rel="noopener" aria-label="View NewMalePortrait2025Gal at full size">
-                        <img src="NewMalePortrait2025Gal.jpg" alt="NewMalePortrait2025Gal" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="OtterWarrior.jpg" target="_blank" rel="noopener" aria-label="View OtterWarrior at full size">
-                        <img src="OtterWarrior.jpg" alt="OtterWarrior" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="RatbarKeeper.png" target="_blank" rel="noopener" aria-label="View RatbarKeeper at full size">
-                        <img src="RatbarKeeper.png" alt="RatbarKeeper" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="RedRock_Cavern_renderforWeb.jpg" target="_blank" rel="noopener" aria-label="View RedRock_Cavern_renderforWeb at full size">
-                        <img src="RedRock_Cavern_renderforWeb.jpg" alt="RedRock_Cavern_renderforWeb" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Scan%2027.jpg" target="_blank" rel="noopener" aria-label="View Scan 27 at full size">
-                        <img src="Scan%2027.jpg" alt="Scan 27" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="Scan%2031.jpg" target="_blank" rel="noopener" aria-label="View Scan 31 at full size">
-                        <img src="Scan%2031.jpg" alt="Scan 31" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="SuperCityStreetsVert.jpg" target="_blank" rel="noopener" aria-label="View SuperCityStreetsVert at full size">
-                        <img src="SuperCityStreetsVert.jpg" alt="SuperCityStreetsVert" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="UuaduColorScheme.jpg" target="_blank" rel="noopener" aria-label="View UuaduColorScheme at full size">
-                        <img src="UuaduColorScheme.jpg" alt="UuaduColorScheme" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="ValleyPlateau.jpg" target="_blank" rel="noopener" aria-label="View ValleyPlateau at full size">
-                        <img src="ValleyPlateau.jpg" alt="ValleyPlateau" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-                <figure>
-                    <a href="YouthPortrait.jpg" target="_blank" rel="noopener" aria-label="View YouthPortrait at full size">
-                        <img src="YouthPortrait.jpg" alt="YouthPortrait" loading="lazy" decoding="async">
-                    </a>
-                </figure>
-            </div>
-            <div class="portfolio-video">
-                <h3 id="video-video"> Game Development: Environment Real-time</h3>
-                <video poster="video-posters/video.jpg?v=15ea9fad4e3b" controls playsinline preload="none" aria-labelledby="video-video">
-                    <source src="video.mp4?v=15ea9fad4e3b" type="video/mp4">
-                    Your browser does not support embedded video. <a href="video.mp4?v=15ea9fad4e3b">Download this portfolio video</a>.
-                </video>
-            </div>
-            <div class="portfolio-video">
-                <h3 id="video-video1">Game Development: Character Design</h3>
-                <video poster="video-posters/Video1.jpg" controls playsinline preload="none" aria-labelledby="video-video1">
-                    <source src="web-videos/Video1.mp4" type="video/mp4">
-                    Your browser does not support embedded video. <a href="web-videos/Video1.mp4">Download this portfolio video</a>.
-                </video>
-            </div>
-            <div class="portfolio-video">
-                <h3 id="video-video2">Environment Concept Render</h3>
-                <video poster="video-posters/Video2.jpg" controls playsinline preload="none" aria-labelledby="video-video2">
-                    <source src="web-videos/Video2.mp4" type="video/mp4">
-                    Your browser does not support embedded video. <a href="web-videos/Video2.mp4">Download this portfolio video</a>.
-                </video>
-            </div>
-            <div class="portfolio-video">
-                <h3 id="video-video3">Asset Modeling</h3>
-                <video poster="video-posters/Video3.jpg" controls playsinline preload="none" aria-labelledby="video-video3">
+            <div class="portfolio-video" data-source="Video.mp4">
+                <video poster="video-posters/Video3.jpg" controls playsinline preload="none" aria-label="Asset Modeling">
                     <source src="web-videos/Video3.mp4" type="video/mp4">
                     Your browser does not support embedded video. <a href="web-videos/Video3.mp4">Download this portfolio video</a>.
                 </video>
             </div>
-            <div class="portfolio-video">
-                <h3 id="video-video4">Dynamics / FX</h3>
-                <video poster="video-posters/Video4.jpg" controls playsinline preload="none" aria-labelledby="video-video4">
-                    <source src="web-videos/Video4.mp4" type="video/mp4">
-                    Your browser does not support embedded video. <a href="web-videos/Video4.mp4">Download this portfolio video</a>.
-                </video>
-            </div>
-            <div class="portfolio-video">
-                <h3 id="video-BrightReaper">BRIGHT REAPER</h3>
-                <video poster="video-posters/BrightReaper.jpg?v=11b9350c1c9a" controls playsinline preload="none" aria-labelledby="video-BrightReaper">
-                    <source src="web-videos/BrightReaper.mp4" type="video/mp4">
-                    Your browser does not support embedded video. <a href="web-videos/BrightReaper.mp4">Download this portfolio video</a>.
-                </video>
-            </div>
-            <div class="portfolio-video">
-                <h3 id="video-GoombaBeast">GOOMBA BEAST</h3>
-                <video poster="video-posters/GoombaBeast.jpg" controls playsinline preload="none" aria-labelledby="video-GoombaBeast">
-                    <source src="web-videos/GoombaBeast.mp4" type="video/mp4">
-                    Your browser does not support embedded video. <a href="web-videos/GoombaBeast.mp4">Download this portfolio video</a>.
-                </video>
-            </div>
-            <div class="portfolio-video">
-                <h3 id="video-Sickleweapon">SICKLE WEAPON</h3>
-                <video poster="video-posters/Sickleweapon.jpg" controls playsinline preload="none" aria-labelledby="video-Sickleweapon">
-                    <source src="web-videos/Sickleweapon.mp4" type="video/mp4">
-                    Your browser does not support embedded video. <a href="web-videos/Sickleweapon.mp4">Download this portfolio video</a>.
-                </video>
-            </div>
-            <div class="portfolio-video">
-                <h3 id="video-isopod">Isopod Modeling &amp; Retopology</h3>
-                <video poster="video-posters/IsopodModelingRetopology.jpg" controls playsinline preload="none" aria-labelledby="video-isopod">
-                    <source src="web-videos/IsopodModelingRetopology.mp4" type="video/mp4">
-                    Your browser does not support embedded video. <a href="web-videos/IsopodModelingRetopology.mp4">Download this portfolio video</a>.
-                </video>
-            </div>
-            <div class="portfolio-video">
-                <h3 id="video-RedFlowerStudy">Flower Study</h3>
-                <video poster="video-posters/RedFlowerStudy.jpg?v=328c106c11e6" controls playsinline preload="none" aria-labelledby="video-RedFlowerStudy">
+            <div class="portfolio-video" data-source="Video1.mp4">
+                <video poster="video-posters/RedFlowerStudy.jpg?v=328c106c11e6" controls playsinline preload="none" aria-label="Flower Study">
                     <source src="web-videos/RedFlowerStudy.mp4?v=328c106c11e6" type="video/mp4">
                     Your browser does not support embedded video. <a href="web-videos/RedFlowerStudy.mp4?v=328c106c11e6">Download this portfolio video</a>.
                 </video>
             </div>
-            <div class="portfolio-video">
-                <h3 id="video-GlowingRingFX">Glowing Ring / FX</h3>
-                <video poster="video-posters/GlowingRingFX.jpg?v=be67c294063d" controls playsinline preload="none" aria-labelledby="video-GlowingRingFX">
+            <div class="portfolio-video" data-source="Video2.mp4">
+                <video poster="video-posters/GlowingRingFX.jpg?v=be67c294063d" controls playsinline preload="none" aria-label="Glowing Ring / FX">
                     <source src="web-videos/GlowingRingFX.mp4?v=be67c294063d" type="video/mp4">
                     Your browser does not support embedded video. <a href="web-videos/GlowingRingFX.mp4?v=be67c294063d">Download this portfolio video</a>.
                 </video>
             </div>
-            <div class="portfolio-video">
-                <h3 id="video-ForestEnvironment">Forest Environment</h3>
-                <video poster="video-posters/ForestEnvironment.jpg?v=e86ff1450620" controls playsinline preload="none" aria-labelledby="video-ForestEnvironment">
+            <div class="portfolio-video" data-source="Video3.mp4">
+                <video poster="video-posters/ForestEnvironment.jpg?v=e86ff1450620" controls playsinline preload="none" aria-label="Forest Environment">
                     <source src="web-videos/ForestEnvironment.mp4?v=e86ff1450620" type="video/mp4">
                     Your browser does not support embedded video. <a href="web-videos/ForestEnvironment.mp4?v=e86ff1450620">Download this portfolio video</a>.
                 </video>
             </div>
-            <div class="portfolio-video">
-                <h3 id="video-ZBrushWorkflow">ZBrush Modeling Workflow</h3>
-                <video poster="video-posters/ZBrushWorkflow.jpg?v=b00412c1175a" controls playsinline preload="none" aria-labelledby="video-ZBrushWorkflow">
+            <div class="portfolio-video" data-source="Video4.MP4">
+                <video poster="video-posters/GoombaBeast.jpg" controls playsinline preload="none" aria-label="GOOMBA BEAST">
+                    <source src="web-videos/GoombaBeast.mp4" type="video/mp4">
+                    Your browser does not support embedded video. <a href="web-videos/GoombaBeast.mp4">Download this portfolio video</a>.
+                </video>
+            </div>
+            <div class="portfolio-video" data-source="video5.mp4">
+                <video poster="video-posters/video.jpg?v=15ea9fad4e3b" controls playsinline preload="none" aria-label="Game Development: Environment Real-time">
+                    <source src="video.mp4?v=15ea9fad4e3b" type="video/mp4">
+                    Your browser does not support embedded video. <a href="video.mp4?v=15ea9fad4e3b">Download this portfolio video</a>.
+                </video>
+            </div>
+            <div class="portfolio-video" data-source="Video6.mp4">
+                <video poster="video-posters/Video1.jpg" controls playsinline preload="none" aria-label="Game Development: Character Design">
+                    <source src="web-videos/Video1.mp4" type="video/mp4">
+                    Your browser does not support embedded video. <a href="web-videos/Video1.mp4">Download this portfolio video</a>.
+                </video>
+            </div>
+            <div class="portfolio-video" data-source="Video7.mp4">
+                <video poster="video-posters/Video2.jpg" controls playsinline preload="none" aria-label="Environment Concept Render">
+                    <source src="web-videos/Video2.mp4" type="video/mp4">
+                    Your browser does not support embedded video. <a href="web-videos/Video2.mp4">Download this portfolio video</a>.
+                </video>
+            </div>
+            <div class="portfolio-video" data-source="Video8.mp4">
+                <video poster="video-posters/ZBrushWorkflow.jpg?v=b00412c1175a" controls playsinline preload="none" aria-label="ZBrush Modeling Workflow">
                     <source src="web-videos/ZBrushWorkflow.mp4?v=b00412c1175a" type="video/mp4">
                     Your browser does not support embedded video. <a href="web-videos/ZBrushWorkflow.mp4?v=b00412c1175a">Download this portfolio video</a>.
                 </video>
             </div>
-            <div class="portfolio-video">
-                <h3 id="video-ComfyUIWorkflow">ComfyUI Creative Workflow</h3>
-                <video poster="video-posters/ComfyUIWorkflow.jpg?v=aadd763fe588" controls playsinline preload="none" aria-labelledby="video-ComfyUIWorkflow">
+            <div class="portfolio-video" data-source="Video9.MP4">
+                <video poster="video-posters/Sickleweapon.jpg" controls playsinline preload="none" aria-label="SICKLE WEAPON">
+                    <source src="web-videos/Sickleweapon.mp4" type="video/mp4">
+                    Your browser does not support embedded video. <a href="web-videos/Sickleweapon.mp4">Download this portfolio video</a>.
+                </video>
+            </div>
+            <div class="portfolio-video" data-source="Video10.MP4">
+                <video poster="video-posters/BrightReaper.jpg?v=11b9350c1c9a" controls playsinline preload="none" aria-label="BRIGHT REAPER">
+                    <source src="web-videos/BrightReaper.mp4" type="video/mp4">
+                    Your browser does not support embedded video. <a href="web-videos/BrightReaper.mp4">Download this portfolio video</a>.
+                </video>
+            </div>
+            <div class="portfolio-video" data-source="Video11.mp4">
+                <video poster="video-posters/ComfyUIWorkflow.jpg?v=aadd763fe588" controls playsinline preload="none" aria-label="ComfyUI Creative Workflow">
                     <source src="web-videos/ComfyUIWorkflow.mp4?v=aadd763fe588" type="video/mp4">
                     Your browser does not support embedded video. <a href="web-videos/ComfyUIWorkflow.mp4?v=aadd763fe588">Download this portfolio video</a>.
                 </video>
             </div>
-            <div class="portfolio-video">
-                <h3 id="video-SpacecraftTurntable">Spacecraft Turntable</h3>
-                <video poster="video-posters/SpacecraftTurntable.jpg?v=452beeb14926" controls playsinline preload="none" aria-labelledby="video-SpacecraftTurntable">
+            <div class="portfolio-video" data-source="Video12.mp4">
+                <video poster="video-posters/IsopodModelingRetopology.jpg" controls playsinline preload="none" aria-label="Isopod Modeling &amp; Retopology">
+                    <source src="web-videos/IsopodModelingRetopology.mp4" type="video/mp4">
+                    Your browser does not support embedded video. <a href="web-videos/IsopodModelingRetopology.mp4">Download this portfolio video</a>.
+                </video>
+            </div>
+            <div class="portfolio-video" data-source="Video13.mp4">
+                <video poster="video-posters/SpacecraftTurntable.jpg?v=452beeb14926" controls playsinline preload="none" aria-label="Spacecraft Turntable">
                     <source src="web-videos/SpacecraftTurntable.mp4?v=452beeb14926" type="video/mp4">
                     Your browser does not support embedded video. <a href="web-videos/SpacecraftTurntable.mp4?v=452beeb14926">Download this portfolio video</a>.
                 </video>
+            </div>
+            <div class="portfolio-video" data-source="Video14.mp4">
+                <video poster="video-posters/Video4.jpg" controls playsinline preload="none" aria-label="Dynamics / FX">
+                    <source src="web-videos/Video4.mp4" type="video/mp4">
+                    Your browser does not support embedded video. <a href="web-videos/Video4.mp4">Download this portfolio video</a>.
+                </video>
+            </div>
+        </section>
+        <section class="media-section" id="art-collection" aria-labelledby="art-heading">
+            <div class="collection-heading">
+                <p>02 / SELECTED ARTWORK</p>
+                <h2 id="art-heading">2D / 3D Art</h2>
+            </div>
+            <div class="media-grid">
+                <figure data-source="Media1.png">
+                    <a href="Media1.png?v=f3c62bd49433" target="_blank" rel="noopener" aria-label="View artwork 1 at full size">
+                        <img src="Media1.png?v=f3c62bd49433" alt="Gino Zappia portfolio artwork 1" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media2.png">
+                    <a href="Media2.png?v=8c440431af57" target="_blank" rel="noopener" aria-label="View artwork 2 at full size">
+                        <img src="Media2.png?v=8c440431af57" alt="Gino Zappia portfolio artwork 2" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media3.jpg">
+                    <a href="Media3.jpg?v=0ecd93225be9" target="_blank" rel="noopener" aria-label="View artwork 3 at full size">
+                        <img src="Media3.jpg?v=0ecd93225be9" alt="Gino Zappia portfolio artwork 3" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media4.jpg">
+                    <a href="Media4.jpg?v=011caa9cc8a5" target="_blank" rel="noopener" aria-label="View artwork 4 at full size">
+                        <img src="Media4.jpg?v=011caa9cc8a5" alt="Gino Zappia portfolio artwork 4" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media5.jpg">
+                    <a href="Media5.jpg?v=b3b3cb3b28f4" target="_blank" rel="noopener" aria-label="View artwork 5 at full size">
+                        <img src="Media5.jpg?v=b3b3cb3b28f4" alt="Gino Zappia portfolio artwork 5" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media6.jpg">
+                    <a href="Media6.jpg?v=1dcae47e5789" target="_blank" rel="noopener" aria-label="View artwork 6 at full size">
+                        <img src="Media6.jpg?v=1dcae47e5789" alt="Gino Zappia portfolio artwork 6" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media7.jpg">
+                    <a href="Media7.jpg?v=b71146a5b542" target="_blank" rel="noopener" aria-label="View artwork 7 at full size">
+                        <img src="Media7.jpg?v=b71146a5b542" alt="Gino Zappia portfolio artwork 7" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media9.png">
+                    <a href="Media9.png?v=440674706b36" target="_blank" rel="noopener" aria-label="View artwork 9 at full size">
+                        <img src="Media9.png?v=440674706b36" alt="Gino Zappia portfolio artwork 9" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media11.jpg">
+                    <a href="Media11.jpg?v=948d3481dd21" target="_blank" rel="noopener" aria-label="View artwork 11 at full size">
+                        <img src="Media11.jpg?v=948d3481dd21" alt="Gino Zappia portfolio artwork 11" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media12.jpg">
+                    <a href="Media12.jpg?v=1ce4d9aa1aa9" target="_blank" rel="noopener" aria-label="View artwork 12 at full size">
+                        <img src="Media12.jpg?v=1ce4d9aa1aa9" alt="Gino Zappia portfolio artwork 12" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media13.jpg">
+                    <a href="Media13.jpg?v=309c292438c1" target="_blank" rel="noopener" aria-label="View artwork 13 at full size">
+                        <img src="Media13.jpg?v=309c292438c1" alt="Gino Zappia portfolio artwork 13" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media14.jpg">
+                    <a href="Media14.jpg?v=c681fda8d171" target="_blank" rel="noopener" aria-label="View artwork 14 at full size">
+                        <img src="Media14.jpg?v=c681fda8d171" alt="Gino Zappia portfolio artwork 14" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media15.jpg">
+                    <a href="Media15.jpg?v=789043566393" target="_blank" rel="noopener" aria-label="View artwork 15 at full size">
+                        <img src="Media15.jpg?v=789043566393" alt="Gino Zappia portfolio artwork 15" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media16.jpg">
+                    <a href="Media16.jpg?v=950538f68286" target="_blank" rel="noopener" aria-label="View artwork 16 at full size">
+                        <img src="Media16.jpg?v=950538f68286" alt="Gino Zappia portfolio artwork 16" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media17.jpg">
+                    <a href="Media17.jpg?v=0ff82cc25be6" target="_blank" rel="noopener" aria-label="View artwork 17 at full size">
+                        <img src="Media17.jpg?v=0ff82cc25be6" alt="Gino Zappia portfolio artwork 17" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media18.jpg">
+                    <a href="Media18.jpg?v=62bafa8f4e73" target="_blank" rel="noopener" aria-label="View artwork 18 at full size">
+                        <img src="Media18.jpg?v=62bafa8f4e73" alt="Gino Zappia portfolio artwork 18" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media19.jpg">
+                    <a href="Media19.jpg?v=0f4173cdd9a9" target="_blank" rel="noopener" aria-label="View artwork 19 at full size">
+                        <img src="Media19.jpg?v=0f4173cdd9a9" alt="Gino Zappia portfolio artwork 19" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media20.jpg">
+                    <a href="Media20.jpg?v=be3ee93a5fa4" target="_blank" rel="noopener" aria-label="View artwork 20 at full size">
+                        <img src="Media20.jpg?v=be3ee93a5fa4" alt="Gino Zappia portfolio artwork 20" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media21.jpg">
+                    <a href="Media21.jpg?v=14310908c8fd" target="_blank" rel="noopener" aria-label="View artwork 21 at full size">
+                        <img src="Media21.jpg?v=14310908c8fd" alt="Gino Zappia portfolio artwork 21" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media22.jpg">
+                    <a href="Media22.jpg?v=cc9cae6c8721" target="_blank" rel="noopener" aria-label="View artwork 22 at full size">
+                        <img src="Media22.jpg?v=cc9cae6c8721" alt="Gino Zappia portfolio artwork 22" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media23.jpg">
+                    <a href="Media23.jpg?v=4a0f4dfb2485" target="_blank" rel="noopener" aria-label="View artwork 23 at full size">
+                        <img src="Media23.jpg?v=4a0f4dfb2485" alt="Gino Zappia portfolio artwork 23" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media24.jpg">
+                    <a href="Media24.jpg?v=882995d737ea" target="_blank" rel="noopener" aria-label="View artwork 24 at full size">
+                        <img src="Media24.jpg?v=882995d737ea" alt="Gino Zappia portfolio artwork 24" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media25.jpg">
+                    <a href="Media25.jpg?v=b9e7a4f1f407" target="_blank" rel="noopener" aria-label="View artwork 25 at full size">
+                        <img src="Media25.jpg?v=b9e7a4f1f407" alt="Gino Zappia portfolio artwork 25" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media26.jpg">
+                    <a href="Media26.jpg?v=36196c601dbb" target="_blank" rel="noopener" aria-label="View artwork 26 at full size">
+                        <img src="Media26.jpg?v=36196c601dbb" alt="Gino Zappia portfolio artwork 26" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media27.jpg">
+                    <a href="Media27.jpg?v=765f911cfdf7" target="_blank" rel="noopener" aria-label="View artwork 27 at full size">
+                        <img src="Media27.jpg?v=765f911cfdf7" alt="Gino Zappia portfolio artwork 27" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media28.jpg">
+                    <a href="Media28.jpg?v=b4516b2714b4" target="_blank" rel="noopener" aria-label="View artwork 28 at full size">
+                        <img src="Media28.jpg?v=b4516b2714b4" alt="Gino Zappia portfolio artwork 28" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media29.jpg">
+                    <a href="Media29.jpg?v=31bbe3e3e902" target="_blank" rel="noopener" aria-label="View artwork 29 at full size">
+                        <img src="Media29.jpg?v=31bbe3e3e902" alt="Gino Zappia portfolio artwork 29" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media30.jpg">
+                    <a href="Media30.jpg?v=d23a4bff9796" target="_blank" rel="noopener" aria-label="View artwork 30 at full size">
+                        <img src="Media30.jpg?v=d23a4bff9796" alt="Gino Zappia portfolio artwork 30" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media31.jpg">
+                    <a href="Media31.jpg?v=140bc56d2005" target="_blank" rel="noopener" aria-label="View artwork 31 at full size">
+                        <img src="Media31.jpg?v=140bc56d2005" alt="Gino Zappia portfolio artwork 31" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+                <figure data-source="Media32.jpg">
+                    <a href="Media32.jpg?v=2ac1ceed5ab6" target="_blank" rel="noopener" aria-label="View artwork 32 at full size">
+                        <img src="Media32.jpg?v=2ac1ceed5ab6" alt="Gino Zappia portfolio artwork 32" loading="lazy" decoding="async">
+                    </a>
+                </figure>
+            </div>
+        </section>
+        <section class="media-section storyboard-section" id="storyboarding" aria-labelledby="storyboard-heading">
+            <div class="collection-heading">
+                <p>03 / STORYBOARDING</p>
+                <h2 id="storyboard-heading">Storyboarding</h2>
             </div>
         </section>
         <footer>
@@ -778,6 +825,79 @@
     </main>
 
     <script>
+        // Collection carousel: manual navigation, with an uninterrupted loop.
+        const carousel = document.querySelector('.collection-carousel');
+        const track = carousel.querySelector('.collection-track');
+        const slides = [...track.children];
+        const selectors = [...carousel.querySelectorAll('.collection-controls button')];
+        const status = carousel.querySelector('.collection-status');
+        const names = ['2D / 3D Art', 'Game Development / Concept Art', 'Storyboarding'];
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let selected = 0, moving = false, resetTimer;
+        function cloneSlide(slide) {
+            const clone = slide.cloneNode(true);
+            clone.inert = true;
+            clone.setAttribute('aria-hidden', 'true');
+            clone.querySelector('a').tabIndex = -1;
+            return clone;
+        }
+        track.prepend(cloneSlide(slides[2]));
+        track.append(cloneSlide(slides[0]));
+        function positionSlide(physical, animate) {
+            track.style.transition = animate ? '' : 'none';
+            track.style.transform = `translateX(-${physical * 100}%)`;
+        }
+        positionSlide(1, false);
+        function showCollection(next) {
+            if (moving) return;
+            moving = true;
+            selected = (next + 3) % 3;
+            slides.forEach((slide, i) => {
+                slide.inert = i !== selected;
+                slide.setAttribute('aria-hidden', String(i !== selected));
+                slide.querySelector('a').tabIndex = i === selected ? 0 : -1;
+                if (i === selected) selectors[i].setAttribute('aria-current', 'true');
+                else selectors[i].removeAttribute('aria-current');
+            });
+            status.textContent = `${names[selected]}, collection ${selected + 1} of 3`;
+            positionSlide(next + 1, !reducedMotion.matches);
+            clearTimeout(resetTimer);
+            resetTimer = setTimeout(() => {
+                positionSlide(selected + 1, false);
+                moving = false;
+            }, reducedMotion.matches ? 0 : 680);
+        }
+        carousel.querySelector('.collection-next').addEventListener('click', () => showCollection(selected + 1));
+        carousel.querySelector('.collection-prev').addEventListener('click', () => showCollection(selected - 1));
+        selectors.forEach((button, i) => button.addEventListener('click', () => showCollection(i)));
+        carousel.addEventListener('keydown', event => {
+            if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+                event.preventDefault();
+                showCollection(selected + (event.key === 'ArrowRight' ? 1 : -1));
+            }
+        });
+        let swipeStart = null, suppressClick = false;
+        carousel.addEventListener('dragstart', event => event.preventDefault());
+        carousel.addEventListener('pointerdown', event => {
+            if (event.target.closest('button') || event.button !== 0) return;
+            swipeStart = { x: event.clientX, y: event.clientY };
+            suppressClick = false;
+        });
+        carousel.addEventListener('pointerup', event => {
+            if (!swipeStart) return;
+            const dx = event.clientX - swipeStart.x, dy = event.clientY - swipeStart.y;
+            swipeStart = null;
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+                suppressClick = true;
+                showCollection(selected + (dx < 0 ? 1 : -1));
+                setTimeout(() => { suppressClick = false; }, 350);
+            }
+        });
+        carousel.addEventListener('pointercancel', () => { swipeStart = null; });
+        carousel.addEventListener('click', event => {
+            if (suppressClick && event.target.closest('a')) { event.preventDefault(); event.stopPropagation(); }
+        }, true);
+
         // --- 1. PRELOADER COUNTDOWN ---
         window.addEventListener('DOMContentLoaded', () => {
             let percentage = 0;
